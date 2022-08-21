@@ -465,6 +465,13 @@ public function index()
             $checker = Auth::user()->id;
             DB::beginTransaction();
             try{
+                // check sendback to 
+                if ($request->departure_id !== $destination_id){
+                    $destination_id = $request->departure_id;
+                    $sjpSendback = Sjp::find($sjp_id);
+                    $sjpSendback->departure_pool_pallet_id = $destination_id;
+                    $sjpSendback->save();
+                }
                 // $update = SjpStatus::find($sjp_status_id);
                 if($sjp->is_sendback != 0){
                     return response()->json([
