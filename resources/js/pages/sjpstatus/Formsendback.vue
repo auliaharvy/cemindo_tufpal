@@ -97,6 +97,7 @@ export default {
                 let row = res.data 
                 this.departure_id = row[0].departure_pool_pallet_id
             }),
+        this.getPoolForm(),
         this.getMstTransaction(), 
         this.getUserLogin()
     },
@@ -122,6 +123,9 @@ export default {
             sjps: state => state.sjps,
             sjp: state => state.sjp
         }),
+        ...mapState('pool', {
+            pools: state => state.pools
+        }),
         ...mapState('msttransaction', {
             msttransactions: state => state.msttransactions
         }),
@@ -132,6 +136,7 @@ export default {
     methods: {
         ...mapMutations('sjpstatus', ['CLEAR_FORM']), 
         ...mapActions('sjp', ['getSjp', 'editSjp']),
+        ...mapActions('pool', ['getPoolForm']),
         ...mapActions('sjpstatus', ['editSjpStatus','submitSjpStatussendback']),
         ...mapActions('msttransaction', ['getMstTransaction']),
         ...mapActions('user', ['getUserLogin']),
